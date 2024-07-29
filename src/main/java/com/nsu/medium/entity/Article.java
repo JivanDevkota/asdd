@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,4 +28,10 @@ public class Article {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "articles_tags",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tags> tags = new HashSet<>();
 }
